@@ -7,10 +7,9 @@ class Solution {
                   // character will always palindrome)
  
         int maxLength = 1,start=0;
-        int low, high;
         for (int i = 0; i < n; i++) {
-            low = i - 1;
-            high = i + 1;
+           int low = i - 1;
+           int high = i + 1;
             while ( high < n && s.charAt(high) == s.charAt(i)) //increment 'high'                                  
                 high++;
        
