@@ -14,7 +14,7 @@ class Solution {
                 else return false;
             }
         }
-        return st.empty()? true:false;
+        return st.empty();
         
     }
 }
