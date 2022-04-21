@@ -1,32 +1,33 @@
 class Solution {
     public String longestPalindrome(String s) {
-        int n=s.length(), max_len=0, starting_index=0;
-        int[][] dp=new int[n][n];
-        for(int i=0;i<n;i++){
-            for(int j=0;j<n;j++){
-                dp[i][j]=-1;
+        int n = s.length(); // calculcharAting size of string
+        if (n < 2)
+            return s; // if string is empty then size will be 0.
+                  // if n==1 then, answer will be 1(single
+                  // character will always palindrome)
+ 
+        int maxLength = 1,start=0;
+        int low, high;
+        for (int i = 0; i < n; i++) {
+            low = i - 1;
+            high = i + 1;
+            while ( high < n && s.charAt(high) == s.charAt(i)) //increment 'high'                                  
+                high++;
+       
+            while ( low >= 0 && s.charAt(low) == s.charAt(i)) // decrement 'low'                   
+                low--;
+       
+            while (low >= 0 && high < n && s.charAt(low) == s.charAt(high) ){
+                  low--;
+                high++;
         }
+ 
+        int length = high - low - 1;
+        if (maxLength < length){
+            maxLength = length;
+            start=low+1;
         }
-        for(int i=0;i<n;i++){
-            for(int j=i;j<n;j++){
-              if(isPalindrome(dp, s,i,j)){
-                  if(j-i+1>max_len){
-                      max_len=j-i+1;
-                      starting_index=i;
-                  }
-              }
-            }
-        }
-        return s.substring(starting_index,starting_index+max_len);
-    }
-    
-    public boolean isPalindrome(int[][] dp, String s,int i,int j){
-        if(dp[i][j]!=-1) return dp[i][j]==1;
-        dp[i][j]=0;
-        if(i==j) dp[i][j]=1;
-        else if(j-i==1)   dp[i][j]=(s.charAt(i)==s.charAt(j))?1:0;
-        else if(s.charAt(i)==s.charAt(j) && isPalindrome( dp, s, i+1, j-1)) 
-            dp[i][j]=1;
-        return dp[i][j]==1;
+    }   
+    return s.substring(start, start + maxLength );
     }
 }
